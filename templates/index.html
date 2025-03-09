@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application - Metana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #34495e;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="file"],
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group input[type="file"] {
+            padding: 8px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background: #27ae60;
+        }
+
+        .success-message {
+            text-align: center;
+            color: #27ae60;
+            font-size: 1.2rem;
+            margin-top: 25px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            border: 1px solid #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Job Application</h2>
+            <p>Submit your application to Metana</p>
+        </div>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email address">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+                <label for="timezone">Time Zone</label>
+                <select id="timezone" name="timezone" required>
+                    <option value="America/New_York">Eastern Time (ET)</option>
+                    <option value="America/Chicago">Central Time (CT)</option>
+                    <option value="America/Denver">Mountain Time (MT)</option>
+                    <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                    <option value="UTC">UTC</option>
+                    <option value="Europe/London">Greenwich Mean Time (GMT)</option>
+                    <option value="Asia/Kolkata">Indian Standard Time (IST)</option>
+                    <option value="Asia/Tokyo">Japan Standard Time (JST)</option>
+                    <option value="Australia/Sydney">Australian Eastern Time (AET)</option>
+                    <!-- Add more time zones as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cv">Upload CV (PDF or DOCX)</label>
+                <input type="file" id="cv" name="cv" accept=".pdf,.docx" required>
+            </div>
+            <button type="submit">Submit Application</button>
+        </form>
+        {% if success %}
+            <div class="success-message">Application Submitted Successfully!</div>
+        {% endif %}
+    </div>
+</body>
+</html>
