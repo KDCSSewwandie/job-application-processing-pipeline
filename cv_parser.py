@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Load Google Sheets API credentials
-SERVICE_ACCOUNT_FILE = "E:\job-application-pipeline\job-application-c9ba7-firebase-adminsdk-fbsvc-d5f0aa1378.json"
+SERVICE_ACCOUNT_FILE = "E:\\job-application-pipeline\\job-application-c9ba7-804aca363d69.json"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive.file"]
 
 try:
@@ -49,12 +49,15 @@ def extract_cv_data(cv_path):
 
         # Extract education
         education = extract_education(text)
+        logger.info(f"Education extracted: {education}")
 
         # Extract qualifications
         qualifications = extract_qualifications(text)
+        logger.info(f"Qualifications extracted: {qualifications}")
 
         # Extract projects
         projects = extract_projects(text)
+        logger.info(f"Projects extracted: {projects}")
 
         return {
             "personal_info": personal_info,
@@ -103,9 +106,9 @@ def store_in_google_sheets(data, cv_link):
             data["personal_info"].get("name", "Unknown"),
             data["personal_info"].get("email", "Unknown"),
             data["personal_info"].get("phone", "Unknown"),
-            "; ".join(data["education"]),
-            "; ".join(data["qualifications"]),
-            "; ".join([p[1] for p in data["projects"]]),
+            "; ".join(data["education"]) if data["education"] else "N/A",
+            "; ".join(data["qualifications"]) if data["qualifications"] else "N/A",
+            "; ".join([p[1] for p in data["projects"]]) if data["projects"] else "N/A",
             cv_link
         ]
         logger.info(f"Storing row in Google Sheets: {row}")

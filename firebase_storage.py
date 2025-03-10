@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize Firebase only once
 if not firebase_admin._apps:
-    cred = credentials.Certificate("E:\job-application-pipeline\job-application-c9ba7-firebase-adminsdk-fbsvc-d5f0aa1378.json")
+    cred = credentials.Certificate("E:\job-application-pipeline\job-application-c9ba7-804aca363d69.json")
     firebase_admin.initialize_app(cred, {
         'storageBucket': 'job-application-c9ba7.firebasestorage.app'
     })

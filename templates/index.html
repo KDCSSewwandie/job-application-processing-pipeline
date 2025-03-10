@@ -100,6 +100,14 @@
             background: #27ae60;
         }
 
+        .loading {
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #3498db;
+            margin-top: 20px;
+        }
+
         .success-message {
             text-align: center;
             color: #27ae60;
@@ -118,7 +126,7 @@
             <h2>Job Application</h2>
             <p>Submit your application to Metana</p>
         </div>
-        <form action="/" method="POST" enctype="multipart/form-data">
+        <form id="cv-form" action="/" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Full Name</label>
                 <input type="text" id="name" name="name" required placeholder="Enter your full name">
@@ -142,8 +150,7 @@
                     <option value="Europe/London">Greenwich Mean Time (GMT)</option>
                     <option value="Asia/Kolkata">Indian Standard Time (IST)</option>
                     <option value="Asia/Tokyo">Japan Standard Time (JST)</option>
-                    <option value="Australia/Sydney">Australian Eastern Time (AET)</option>
-                    <!-- Add more time zones as needed -->
+                    <option value="Australia/Sydney">Australian Eastern Time (AET)</option>     
                 </select>
             </div>
             <div class="form-group">
@@ -152,9 +159,49 @@
             </div>
             <button type="submit">Submit Application</button>
         </form>
-        {% if success %}
-            <div class="success-message">Application Submitted Successfully!</div>
-        {% endif %}
+        
+        <!-- Loading and success messages -->
+        <div id="loading" class="loading">Submitting your application, please wait...</div>
+        <div id="success-message" class="success-message" style="display: none;">Application Submitted Successfully!</div>
     </div>
+
+    <script>
+        const form = document.getElementById('cv-form');
+        const loading = document.getElementById('loading');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Show loading screen
+            loading.style.display = 'block';
+            successMessage.style.display = 'none';
+
+            // Create FormData object to send the form data
+            const formData = new FormData(form);
+
+            // Submit the form via AJAX
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    loading.style.display = 'none';
+                    successMessage.style.display = 'block';
+                } else {
+                    // Handle error (e.g. display error message)
+                    loading.style.display = 'none';
+                    alert(data.error || "An error occurred.");
+                }
+            })
+            .catch(error => {
+                loading.style.display = 'none';
+                alert("An error occurred.");
+            });
+        });
+    </script>
 </body>
 </html>
